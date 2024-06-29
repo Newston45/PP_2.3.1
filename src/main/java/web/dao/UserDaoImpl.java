@@ -15,7 +15,6 @@ public class UserDaoImpl implements UserDao {
     private EntityManager em;
 
     @Override
-    @Transactional
     public void save(User user) {
         if (user.getId() != null) {
             em.merge(user);
@@ -25,19 +24,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     public void delete(User user) {
         em.remove(user);
     }
 
     @Override
-    @Transactional
     public User findById(Long id) {
         return em.find(User.class, id);
     }
 
     @Override
-    @Transactional
     public List<User> findAll() {
         return em.createQuery("select u from User u", User.class).getResultList();
     }

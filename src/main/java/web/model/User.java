@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
@@ -12,8 +16,24 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty(message = "Username is required")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Username can only contain letters")
     private String username;
+
+    @NotEmpty(message = "Email is required")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @Min(value = 1)
+    private Integer age;
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     public Long getId() {
         return id;
@@ -45,7 +65,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", age=" + age +
                 '}';
     }
-
 }
